@@ -1,24 +1,22 @@
-require('dotenv').config(); // Загружаем переменные среды из .env
+require('dotenv').config(); // Загрузка переменных из .env
 const express = require('express');
-const { Client } = require('pg'); // Подключение к PostgreSQL
-const argon2 = require('argon2'); // Импортируем Argon2 для хэширования паролей
+const { Client } = require('pg');
+const argon2 = require('argon2');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware для обработки JSON
-app.use(express.json());
+app.use(express.json()); // Обработка JSON-запросов
 
-// Настройка подключения к PostgreSQL
+// Подключение к PostgreSQL
 const client = new Client({
-    user: process.env.DB_USER,       // Имя пользователя из .env
-    host: process.env.DB_HOST,       // Хост базы данных из .env
-    database: process.env.DB_NAME,   // Имя базы данных из .env
-    password: process.env.DB_PASSWORD, // Пароль из .env
-    port: process.env.DB_PORT,       // Порт из .env
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
 });
 
-// Подключение к базе данных
 client.connect()
     .then(() => console.log('Connected to PostgreSQL'))
     .catch(err => console.error('Connection error:', err.stack));
@@ -28,42 +26,42 @@ app.get('/', (req, res) => {
     res.send('Movie Platform Backend is running!');
 });
 
-// Маршрут для регистрации пользователя
+// Регистрация
 app.post('/register', async (req, res) => {
-    const { username, password } = req.body; // Получаем имя пользователя и пароль
+    const { username, password } = req.body;
     try {
-        const hashedPassword = await argon2.hash(password); // Хэшируем пароль
-        const query = 'INSERT INTO users (username, password) VALUES ($1, $2);'; // SQL-запрос для вставки
-        await client.query(query, [username, hashedPassword]); // Выполняем запрос
-        res.status(201).send('User registered successfully'); // Успешная регистрация
+        const hashedPassword = await argon2.hash(password);
+        const query = 'INSERT INTO users (username, password) VALUES ($1, $2);';
+        await client.query(query, [username, hashedPassword]);
+        res.status(201).send('User registered successfully');
     } catch (err) {
         console.error('Error during registration:', err);
-        res.status(500).send('Registration failed'); // Ошибка регистрации
+        res.status(500).send('Registration failed');
     }
 });
 
-// Маршрут для входа пользователя
+// Вход
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body; // Получаем данные пользователя
+    const { username, password } = req.body;
     try {
-        const query = 'SELECT password FROM users WHERE username = $1;'; // SQL-запрос для получения хэша пароля
-        const result = await client.query(query, [username]); // Выполняем запрос
+        const query = 'SELECT password FROM users WHERE username = $1;';
+        const result = await client.query(query, [username]);
 
         if (result.rows.length === 0) {
-            return res.status(404).send('User not found'); // Пользователь не найден
+            return res.status(404).send('User not found');
         }
 
-        const hashedPassword = result.rows[0].password; // Получаем хэш пароля из базы данных
-        const match = await argon2.verify(hashedPassword, password); // Проверяем пароль
+        const hashedPassword = result.rows[0].password;
+        const match = await argon2.verify(hashedPassword, password);
 
         if (match) {
-            res.status(200).send('Login successful'); // Успех
+            res.status(200).send('Login successful');
         } else {
-            res.status(401).send('Invalid credentials'); // Неверные данные
+            res.status(401).send('Invalid credentials');
         }
     } catch (err) {
         console.error('Error during login:', err);
-        res.status(500).send('Login failed'); // Ошибка входа
+        res.status(500).send('Login failed');
     }
 });
 

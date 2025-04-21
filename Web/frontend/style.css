@@ -1,0 +1,80 @@
+/* General */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation Bar */
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    margin-left: 15px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #1d1d1d, #343a40);
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+header .btn {
+    font-size: 1.25rem;
+}
+
+/* Forms */
+form {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+}
+
+form input {
+    height: 50px;
+    font-size: 1rem;
+}
+
+form button {
+    height: 50px;
+    font-size: 1.1rem;
+}
+
+/* Movies Section */
+#moviesList .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#moviesList .card-title {
+    font-weight: 500;
+}
+
+#moviesList .text-muted {
+    font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+    background: #1d1d1d;
+}

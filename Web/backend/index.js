@@ -1,39 +1,33 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+
 dotenv.config();
 
-const adminRoutes = require('./routes/admin');
-const authRoutes = require('./routes/auth');
-const movieRoutes = require('./routes/movie');
-const reviewRoutes = require('./routes/review');
-const errorHandler = require('./middleware/errorHandler');
-
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Connect to database
+connectDB();
+
+// Built-in middleware to parse JSON bodies
 app.use(express.json());
 
-// Routes
-app.use('/api/admin', adminRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/movies', movieRoutes);
-app.use('/api/reviews', reviewRoutes);
-app.use(errorHandler);
+// Route handlers
+app.use('/api/admin', require('./routes/admin'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/movies', require('./routes/movie'));
+app.use('/api/reviews', require('./routes/review'));
 
-// Home route
+// Centralized error handler
+app.use(require('./middleware/errorHandler'));
+
+// Health check
 app.get('/', (req, res) => {
-  res.send('🔥 Сервер работает!');
+  res.send('🔥 Server is running');
 });
 
-// База данных
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Подключено к MongoDB'))
-  .catch((err) => console.log('❌ Ошибка подключения к MongoDB:', err.message));
-
-// Запуск сервера
-const PORT = process.env.PORT || 3000;
+// Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

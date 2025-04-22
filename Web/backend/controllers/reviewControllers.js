@@ -1,39 +1,54 @@
 const Review = require('../models/Review');
 
-const addReview = async (req, res) => {
+/**
+ * Add a review for a movie
+ * Requires authentication middleware to fill req.user.id
+ */
+const addReview = async (req, res, next) => {
   try {
     const { movieId, rating, comment } = req.body;
-    const userId = req.user.id; // Информация о пользователе должна быть заполнена через middleware auth
+    const userId = req.user.id;
 
-    if (!movieId || !rating || !comment) {
-      return res.status(400).send('All fields are required');
+    // Validate required fields
+    if (!movieId || rating == null || !comment) {
+      return res
+        .status(400)
+        .json({ message: 'movieId, rating and comment are required' });
     }
 
-    const review = new Review({
-      movieId,
-      userId,
-      rating,
-      comment
-    });
-
+    // Create and save review
+    const review = new Review({ movieId, userId, rating, comment });
     await review.save();
-    res.status(201).json({ message: 'Review added successfully', review });
+
+    res
+      .status(201)
+      .json({ message: 'Review added successfully', review });
   } catch (err) {
-    res.status(500).send('Error adding review');
+    next(err);
   }
 };
 
-const getReviewsByMovie = async (req, res) => {
+/**
+ * Get all reviews for a given movie
+ * Publicly accessible
+ */
+const getReviewsByMovie = async (req, res, next) => {
   try {
     const { movieId } = req.query;
     if (!movieId) {
-      return res.status(400).send('movieId query parameter is required');
+      return res
+        .status(400)
+        .json({ message: 'movieId query parameter is required' });
     }
-    // Запрашиваем отзывы и подставляем имя пользователя для отображения (username)
-    const reviews = await Review.find({ movieId }).populate('userId', 'username');
+
+    // Populate user's username for each review
+    const reviews = await Review.find({ movieId }).populate(
+      'userId',
+      'username'
+    );
     res.status(200).json(reviews);
   } catch (err) {
-    res.status(500).send('Error fetching reviews');
+    next(err);
   }
 };
 

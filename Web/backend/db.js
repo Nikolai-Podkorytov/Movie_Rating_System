@@ -1,12 +1,15 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
+/**
+ * Connect to MongoDB using URI from .env
+ */
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ MongoDB подключена');
-  } catch (error) {
-    console.error('❌ Ошибка подключения к MongoDB:', error.message);
+    console.log('✅ MongoDB connected');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err.message);
     process.exit(1);
   }
 };

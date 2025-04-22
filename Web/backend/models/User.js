@@ -1,14 +1,25 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  email:    { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role:     { type: String, enum: ['user', 'critic', 'admin'], default: 'user' },
-}, { timestamps: true });
+/**
+ * User schema
+ * Hashes password before saving
+ */
+const userSchema = new mongoose.Schema(
+  {
+    username: { type: String, required: true },
+    email:    { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role:     {
+      type: String,
+      enum: ['user', 'critic', 'admin'],
+      default: 'user'
+    }
+  },
+  { timestamps: true }
+);
 
-// Хешируем пароль перед сохранением
+// Pre-save hook to hash password
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
@@ -16,7 +27,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Проверка пароля
+// Instance method to compare plaintext password
 userSchema.methods.comparePassword = function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };

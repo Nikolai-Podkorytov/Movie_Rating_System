@@ -1,46 +1,60 @@
-const User = require('../models/User'); // Предполагается, что модель пользователя уже создана
+const User = require('../models/User');
 
-// Получение списка всех пользователей (без поля password)
-const getAllUsers = async (req, res) => {
+/**
+ * Get a list of all users (excluding their password field)
+ */
+const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({}, '-password');
     res.status(200).json(users);
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching users' });
+    // Forward error to centralized error handler
+    next(err);
   }
 };
 
-// Изменение роли пользователя
-const updateUserRole = async (req, res) => {
+/**
+ * Update a user's role
+ * Expects: req.params.id, req.body.role
+ */
+const updateUserRole = async (req, res, next) => {
   try {
     const userId = req.params.id;
-    const { role } = req.body; // передаём новую роль в теле запроса
+    const { role } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { role },
       { new: true, runValidators: true }
     );
+
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
     }
-    res.status(200).json({ message: 'User role updated successfully', user: updatedUser });
+
+    res
+      .status(200)
+      .json({ message: 'User role updated successfully', user: updatedUser });
   } catch (err) {
-    res.status(500).json({ message: 'Error updating user role' });
+    next(err);
   }
 };
 
-// Удаление пользователя
-const deleteUser = async (req, res) => {
+/**
+ * Delete a user by ID
+ */
+const deleteUser = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const deletedUser = await User.findByIdAndDelete(userId);
+
     if (!deletedUser) {
       return res.status(404).json({ message: 'User not found' });
     }
+
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (err) {
-    res.status(500).json({ message: 'Error deleting user' });
+    next(err);
   }
 };
 

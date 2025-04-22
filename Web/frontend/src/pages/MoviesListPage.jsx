@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import MovieCard from '../components/MovieCard';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import '../styles/animations.css'; // Добавьте этот файл в папке со стилями
 
 const MoviesListPage = () => {
   const [movies, setMovies] = useState([]);
@@ -8,7 +10,6 @@ const MoviesListPage = () => {
   const [genre, setGenre] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
 
-  // Функция для получения списка фильмов с учетом фильтрации
   const fetchMovies = async () => {
     try {
       let query = '';
@@ -35,7 +36,6 @@ const MoviesListPage = () => {
   return (
     <div className="container mt-5">
       <h2>Movies List</h2>
-      {/* Форма поиска и фильтрации */}
       <form onSubmit={handleSearch} className="mb-4">
         <div className="row">
           <div className="col-md-4">
@@ -71,17 +71,15 @@ const MoviesListPage = () => {
         </div>
       </form>
 
-      {movies.length === 0 ? (
-        <p>No movies found.</p>
-      ) : (
-        <div className="row">
-          {movies.map(movie => (
-            <div key={movie._id} className="col-md-4 mb-3">
+      <TransitionGroup className="row">
+        {movies.map(movie => (
+          <CSSTransition key={movie._id} timeout={300} classNames="fade">
+            <div className="col-md-4 mb-3">
               <MovieCard movie={movie} />
             </div>
-          ))}
-        </div>
-      )}
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </div>
   );
 };

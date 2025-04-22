@@ -7,6 +7,7 @@ const adminRoutes = require('./routes/admin');
 const authRoutes = require('./routes/auth');
 const movieRoutes = require('./routes/movie');
 const reviewRoutes = require('./routes/review');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use(errorHandler);
 
 // Home route
 app.get('/', (req, res) => {

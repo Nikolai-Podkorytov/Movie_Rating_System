@@ -1,7 +1,7 @@
-module.exports = (requiredRoles) => {
+module.exports = (allowedRoles) => {
   return (req, res, next) => {
-    if (!requiredRoles.includes(req.user.role)) {
-      return res.status(403).json({ message: 'Недостаточно прав' });
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({ message: 'Insufficient permissions' });
     }
     next();
   };

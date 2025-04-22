@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const adminRoutes = require('./routes/admin');
 const authRoutes = require('./routes/auth');
 const movieRoutes = require('./routes/movie');
+const reviewRoutes = require('./routes/review');
 
 const app = express();
 
@@ -12,8 +14,10 @@ const app = express();
 app.use(express.json());
 
 // Routes
+app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/movies', movieRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 // Home route
 app.get('/', (req, res) => {

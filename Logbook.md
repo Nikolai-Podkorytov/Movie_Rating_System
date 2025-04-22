@@ -8,5 +8,8 @@ Logbook.md
 | 07.04.2025 | 2   | Project_phase_1     |   ( ideas task manager)    |
 | 07.04.2025 | 7   | Project_phase_1     | Mostly finnished.      |
 | 20.04.2025 | 4   | Project_phase_2     | beggining     |
-| 21.04.2025 | 6   | Project_phase_2     | beggining     |
-| //.//.2025 | 26  | Total hours       |                    |
+| 21.04.2025 | 6   | Project_phase_2     | Creating backend     |
+| 22.04.2025 | 6   | Project_phase_2     | Creating frondend and database      |
+| 22.04.2025 | 6   | Project_phase_2     | Cloud and documetations      |
+| 23.04.2025 | 5    | Project_phase_2     | Testing and fixing mistakes     |
+| //.//.2025 | 43  | Total hours       |                    |

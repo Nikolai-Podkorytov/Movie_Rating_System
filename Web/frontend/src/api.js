@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 const api = axios.create({
@@ -6,3 +5,4 @@ const api = axios.create({
 });
 
 export default api;
+

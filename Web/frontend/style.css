@@ -1,80 +1,83 @@
-/* General */
+/*
+  File: style.css
+  Description: Global styles for the Movie Platform frontend.
+*/
+
+/* General typography and layout */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f7f9fc;
-    color: #333;
-    line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7f9fc;
+  color: #333;
+  line-height: 1.6;
 }
 
 h1, h2 {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-/* Navigation Bar */
+/* Navigation Bar styling */
 .navbar-brand {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .navbar-nav .nav-link {
-    font-size: 1rem;
-    margin-left: 15px;
+  font-size: 1rem;
+  margin-left: 15px;
 }
 
-/* Header */
+/* Header section background and text */
 header {
-    background: linear-gradient(90deg, #1d1d1d, #343a40);
-    color: white;
+  background: linear-gradient(90deg, #1d1d1d, #343a40);
+  color: #fff;
 }
 
 header h1 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 header .btn {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
-/* Forms */
+/* Form container styling */
 form {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-form input {
-    height: 50px;
-    font-size: 1rem;
-}
-
+form input,
 form button {
-    height: 50px;
-    font-size: 1.1rem;
+  height: 50px;
+  font-size: 1rem;
 }
 
-/* Movies Section */
+/* Movie cards styling */
 #moviesList .card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #moviesList .card-title {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 #moviesList .text-muted {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
-/* Footer */
+/* Footer styling */
 footer {
-    background: #1d1d1d;
+  background-color: #1d1d1d;
+  color: #fff;
+  padding: 1rem 0;
 }

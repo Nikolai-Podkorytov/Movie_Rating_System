@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import * as jwtDecodeNamespace from 'jwt-decode';
-const jwtDecode = jwtDecodeNamespace.default;
+import { jwtDecode } from 'jwt-decode';
+
 
 
 const RequireRole = ({ children, allowedRoles }) => {

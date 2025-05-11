@@ -1,6 +1,8 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
+import * as jwtDecodeNamespace from 'jwt-decode';
+const jwtDecode = jwtDecodeNamespace.default;
+
 
 const RequireRole = ({ children, allowedRoles }) => {
   const token = localStorage.getItem('token');

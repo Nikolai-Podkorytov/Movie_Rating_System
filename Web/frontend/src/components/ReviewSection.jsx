@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
-import jwtDecode from 'jwt-decode';
+import * as jwtDecodeNamespace from 'jwt-decode';
+const jwtDecode = jwtDecodeNamespace.default;
+
 
 const ReviewSection = ({ movieId }) => {
   const [reviews, setReviews] = useState([]);

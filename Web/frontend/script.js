@@ -7,7 +7,7 @@ const loginForm    = document.getElementById('loginForm');
 const getMoviesBtn = document.getElementById('getMovies');
 
 // Base API URL: prefer environment variable, fallback to localhost
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
+const BASE_URL = 'https://movie-rating-system-back.onrender.com/api';
 
 // Helper: display a message in a given element
 function showMessage(elementId, message) {

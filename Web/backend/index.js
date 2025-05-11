@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const connectDB = require('./db');
 
 dotenv.config();
@@ -13,6 +14,7 @@ connectDB();
 // Built-in middleware to parse JSON bodies
 app.use(express.json());
 
+app.use(cors());
 // Route handlers
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/auth', require('./routes/auth'));

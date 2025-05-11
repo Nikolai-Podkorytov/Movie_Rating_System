@@ -15,6 +15,8 @@ connectDB();
 app.use(express.json());
 
 app.use(cors());
+app.options('*', cors());
+
 // Route handlers
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/auth', require('./routes/auth'));

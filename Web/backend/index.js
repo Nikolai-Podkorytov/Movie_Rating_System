@@ -7,28 +7,33 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to database
+// Подключение к базе данных
 connectDB();
 
-// Built-in middleware для парсинга JSON
+// Парсинг JSON
 app.use(express.json());
 
-// Глобальный обработчик OPTIONS (если нужен)
-// Если ты доверяешь явным обработчикам в routes/auth.js, эту часть можно закомментировать
-// app.options('*', (req, res) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
-//   res.sendStatus(200);
-// });
+// Глобальный обработчик для всех OPTIONS запросов
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
+    return res.sendStatus(200);
+  }
+  next();
+});
 
-// Подключаем маршруты
+// Подключение маршрутов
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/movies', require('./routes/movie'));
 app.use('/api/reviews', require('./routes/review'));
 
-// Обработчик ошибок
+// Централизованный обработчик ошибок
 app.use(require('./middleware/errorHandler'));
 
 // Health check
@@ -36,6 +41,7 @@ app.get('/', (req, res) => {
   res.send('🔥 Server is running');
 });
 
+// Запуск сервера
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

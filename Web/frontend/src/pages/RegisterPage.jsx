@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import api from '../api';
 
-export default function RegisterPage() {
+const RegisterPage = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await api.post('/auth/register', form);
-      alert('✅ Успешно зарегистрирован!');
+      if (res.status === 201) {
+        alert('✅ Успешно зарегистрирован!');
+      } else {
+        alert('❌ Ошибка регистрации');
+      }
     } catch (err) {
       alert('❌ Ошибка регистрации');
     }
@@ -22,4 +26,6 @@ export default function RegisterPage() {
       <button type="submit">Зарегистрироваться</button>
     </form>
   );
-}
+};
+
+export default RegisterPage;

@@ -6,14 +6,17 @@ const LoginPage = () => {
   const [form, setForm] = useState({ username: '', password: '' });
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/login', form);
-      const data = response.data;
-      localStorage.setItem('token', data.token);
-      alert('✅ Успешный вход!');
-      navigate('/');
+      const res = await api.post('/auth/login', form);
+      if (res.status === 200) {
+        localStorage.setItem('token', res.data.token);
+        alert('✅ Успешный вход!');
+        navigate('/');
+      } else {
+        alert('❌ Ошибка входа');
+      }
     } catch (err) {
       alert('❌ Ошибка входа');
     }

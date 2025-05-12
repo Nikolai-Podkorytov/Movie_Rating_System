@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/LoginPage';
@@ -13,7 +13,7 @@ import RequireRole from './utils/RequireRole';
 
 const App = () => {
   return (
-    <Router>
+    <>
       <ToastContainer 
         position="top-right"
         autoClose={3000}
@@ -47,7 +47,7 @@ const App = () => {
         } />
         {/* Другие маршруты */}
       </Routes>
-    </Router>
+    </>
   );
 };
 

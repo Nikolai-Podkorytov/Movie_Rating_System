@@ -14,4 +14,5 @@ Logbook.md
 | 23.04.2025 | 5    | Project_phase_2     | Testing and fixing mistakes     |
 | 11.05.2025 | 10    | Project_phase_2     | Testing and fixing mistakes     |
 | 12.05.2025 | 4    | Project_phase_2     | testing react and db     |
-| //.//.2025 | 57  | Total hours       |                    |
+| 12.05.2025 | 3    | Project_phase_2     | testing api problems     |
+| //.//.2025 | 60  | Total hours       |                    |

@@ -1,33 +1,32 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./db');
+const cors = require('cors'); // Импортируем cors
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Подключение к базе данных
-connectDB();
+// Подключаем CORS, разрешая запросы с нужного домена
+app.use(cors({
+  origin: 'https://movie-rating-system-front.onrender.com'
+}));
 
-// Парсинг JSON
+// Подключаем парсинг JSON (оставляем один вызов)
 app.use(express.json());
 
-// Глобальный обработчик для всех OPTIONS запросов
-app.use(express.json());
-
-// Глобальный обработчик для всех OPTIONS-запросов:
+// (Опционально) Если вам нужно логировать OPTIONS запросы, можно добавить middleware после cors
 app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
-    console.log("Получен OPTIONS запрос: ", req.originalUrl);  // Добавляем лог для проверки
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
+    console.log("Получен OPTIONS запрос:", req.originalUrl);
+    // CORS уже настроен, поэтому можно просто отправить статус
     return res.sendStatus(200);
   }
   next();
 });
 
+// Тестовый роут для проверки API
 app.get('/api', (req, res) => {
   res.send('API is working');
 });

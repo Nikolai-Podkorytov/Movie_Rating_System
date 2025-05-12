@@ -48,33 +48,75 @@
       <h2 class="text-center mb-4">Register</h2>
       <form id="registerForm" class="mx-auto" style="max-width: 400px;">
         <div class="mb-3">
-          <input type="text" id="username" class="form-control" placeholder="Username" required />
+          <input 
+            type="text" 
+            id="username" 
+            name="username"
+            class="form-control" 
+            placeholder="Username" 
+            required 
+            autocomplete="username"  <!-- Добавляем autoComplete -->
+          />
         </div>
         <div class="mb-3">
-          <input type="email" id="email" class="form-control" placeholder="Email" required />
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            class="form-control" 
+            placeholder="Email" 
+            required 
+            autocomplete="email"  <!-- Добавляем autoComplete -->
+          />
         </div>
         <div class="mb-3">
-          <input type="password" id="password" class="form-control" placeholder="Password" required />
+          <input 
+            type="password" 
+            id="password" 
+            name="password"
+            class="form-control" 
+            placeholder="Password" 
+            required 
+            autocomplete="new-password"  <!-- В случае регистрации для нового пароля -->
+          />
         </div>
         <button type="submit" class="btn btn-success w-100">Register</button>
       </form>
       <p id="registerResult" class="text-center mt-3"></p>
     </section>
+    
 
     <!-- Login -->
     <section id="login-section" class="mb-5">
       <h2 class="text-center mb-4">Login</h2>
       <form id="loginForm" class="mx-auto" style="max-width: 400px;">
         <div class="mb-3">
-          <input type="text" id="loginUsername" class="form-control" placeholder="Username" required />
+          <input 
+            type="text" 
+            id="loginUsername" 
+            name="loginUsername"
+            class="form-control" 
+            placeholder="Username" 
+            required 
+            autocomplete="username"  <!-- Добавляем autoComplete -->
+          />
         </div>
         <div class="mb-3">
-          <input type="password" id="loginPassword" class="form-control" placeholder="Password" required />
+          <input 
+            type="password" 
+            id="loginPassword" 
+            name="loginPassword"
+            class="form-control" 
+            placeholder="Password" 
+            required 
+            autocomplete="current-password"  <!-- Для логина используем current-password -->
+          />
         </div>
         <button type="submit" class="btn btn-primary w-100">Login</button>
       </form>
       <p id="loginResult" class="text-center mt-3"></p>
     </section>
+    
 
     <!-- Movies -->
     <section id="movies-section" class="mb-5">

@@ -13,6 +13,18 @@ connectDB();
 
 // Built-in middleware to parse JSON bodies
 app.use(express.json());
+app.use((req, res, next) => {
+  // Разрешаем запросы с любого источника; если хотите ограничить конкретным доменом, замените '*' на нужный URL
+  res.header("Access-Control-Allow-Origin", "*");
+  // Указываем какие заголовки могут быть в запросе
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  // Для preflight-запроса (OPTIONS) разрешаем методы
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
+    return res.status(200).json({});
+  }
+  next();
+});
 
 app.use(cors());
 app.options('*', cors());

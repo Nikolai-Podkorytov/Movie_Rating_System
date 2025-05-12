@@ -12,4 +12,6 @@ Logbook.md
 | 22.04.2025 | 6   | Project_phase_2     | Creating frondend and database      |
 | 22.04.2025 | 6   | Project_phase_2     | Cloud and documetations      |
 | 23.04.2025 | 5    | Project_phase_2     | Testing and fixing mistakes     |
-| //.//.2025 | 43  | Total hours       |                    |
+| 11.05.2025 | 10    | Project_phase_2     | Testing and fixing mistakes     |
+| 12.05.2025 | 4    | Project_phase_2     | testing react and db     |
+| //.//.2025 | 57  | Total hours       |                    |

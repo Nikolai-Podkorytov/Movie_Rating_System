@@ -7,7 +7,7 @@ const loginForm = document.getElementById('loginForm');
 const getMoviesBtn = document.getElementById('getMovies');
 
 // Base API URL: prefer environment variable, fallback to localhost
-const BASE_URL = 'https://movie-rating-system-back.onrender.com/api';
+const BASE_URL = 'https://movie-rating-system-nmfw.onrender.com/api';
 
 // Helper: display a message in a given element
 function showMessage(elementId, message) {
@@ -83,10 +83,10 @@ if (getMoviesBtn) {
       const response = await fetch(`${BASE_URL}/movies`);
       
       const movies = await response.json();
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Error ${response.status}: ${errorData.message || 'Failed to fetch movies'}`);
-      }
+if (!response.ok) {
+  const errorData = await response.json();
+  throw new Error(`Error ${response.status}: ${errorData.message || 'Failed to fetch movies'}`);
+}
       const moviesList = document.getElementById('moviesList');
       moviesList.innerHTML = '';
 

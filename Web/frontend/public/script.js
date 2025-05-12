@@ -3,7 +3,7 @@
 
 // Select DOM elements
 const registerForm = document.getElementById('registerForm');
-const loginForm    = document.getElementById('loginForm');
+const loginForm = document.getElementById('loginForm');
 const getMoviesBtn = document.getElementById('getMovies');
 
 // Base API URL: prefer environment variable, fallback to localhost
@@ -22,7 +22,7 @@ if (registerForm) {
   registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const username = document.getElementById('username').value.trim();
-    const email    = document.getElementById('email').value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
     try {
@@ -31,6 +31,10 @@ if (registerForm) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
       });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error ${response.status}: ${errorData.message || 'Registration failed'}`);
+      }
       const data = await response.json();
       showMessage('registerResult', data.message || 'Registration successful');
     } catch (err) {
@@ -55,7 +59,10 @@ if (loginForm) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
-      if (!response.ok) throw new Error('Login failed');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error ${response.status}: ${errorData.message || 'Login failed'}`);
+      }
       const data = await response.json();
       // Store JWT for future requests
       localStorage.setItem('token', data.token);
@@ -74,8 +81,12 @@ if (getMoviesBtn) {
   getMoviesBtn.addEventListener('click', async () => {
     try {
       const response = await fetch(`${BASE_URL}/movies`);
-      const movies   = await response.json();
-
+      
+      const movies = await response.json();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error ${response.status}: ${errorData.message || 'Failed to fetch movies'}`);
+      }
       const moviesList = document.getElementById('moviesList');
       moviesList.innerHTML = '';
 

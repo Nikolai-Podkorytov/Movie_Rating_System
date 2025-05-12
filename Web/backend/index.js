@@ -14,17 +14,22 @@ connectDB();
 app.use(express.json());
 
 // Глобальный обработчик для всех OPTIONS запросов
+app.use(express.json());
+
+// Глобальный обработчик для всех OPTIONS-запросов:
 app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
+    console.log("Получен OPTIONS запрос: ", req.originalUrl);  // Добавляем лог для проверки
     res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
     return res.sendStatus(200);
   }
   next();
+});
+
+app.get('/api', (req, res) => {
+  res.send('API is working');
 });
 
 // Подключение маршрутов

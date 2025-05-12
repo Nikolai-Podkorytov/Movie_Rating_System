@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors');
+//const cors = require('cors');
 const connectDB = require('./db');
 
 dotenv.config();
@@ -26,8 +26,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors());
-app.options('*', cors());
+//app.use(cors());
+//app.options('*', cors());
 
 // Route handlers
 app.use('/api/admin', require('./routes/admin'));

@@ -26,6 +26,7 @@ const App = () => {
         pauseOnHover
       />
       <Routes>
+        <Route path="/" element={<MoviesListPage />} /> {/* Добавьте этот маршрут */}
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/add-movie" element={

@@ -2,15 +2,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./db');
 const cors = require('cors'); // Импортируем cors
+const path = require('path'); // Импортируем path для обработки маршрутов фронтенда
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Подключаем CORS, разрешая запросы с нужного домена
+// Подключаем CORS, разрешая запросы с любого источника для локальной разработки
 app.use(cors({
-  origin: 'https://movie-rating-system-front.onrender.com'
+  origin: 'http://localhost:3001' // Разрешаем запросы с порта 3001
 }));
 
 // Подключаем парсинг JSON (оставляем один вызов)
@@ -43,6 +44,13 @@ app.use(require('./middleware/errorHandler'));
 // Health check
 app.get('/', (req, res) => {
   res.send('🔥 Server is running');
+});
+
+// Обработка маршрутов фронтенда
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
 
 // Запуск сервера
